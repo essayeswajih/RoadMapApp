@@ -1,0 +1,4 @@
+storePassword=x9n3x9x9
+keyPassword=x9n3x9x9
+keyAlias=upload
+storeFile=../app/upload
