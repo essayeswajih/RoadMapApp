@@ -56,9 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
   String _roadMapText = ""; // Variable to store the Gemini response
   final _textFieldController = TextEditingController(); // Controller for the TextField
   String _response = ""; // Variable to display API response
+  bool _isLoading = false; // Flag for showing loading indicator
 
   // Method to call Gemini API and get the roadmap
   void _getRoadMap(String prompt) async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
+
     try {
       var text = "give me a road map for: $prompt";
       print(text);
@@ -71,10 +76,20 @@ class _MyHomePageState extends State<MyHomePage> {
         });
         print(_response);
       } else {
+        setState(() {
+          _response = 'No output received from the API'; // User feedback
+        });
         print('No output received from the API');
       }
     } catch (e) {
+      setState(() {
+        _response = 'Error: Could not fetch the roadmap. Please try again.'; // User feedback
+      });
       print('Error: $e');
+    } finally {
+      setState(() {
+        _isLoading = false; // Hide loading indicator
+      });
     }
   }
 
@@ -143,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 20),
               // Button to fetch roadmap
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,right: 20,bottom: 10),
+                padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 10),
                 child: TextButton(
                   onPressed: () {
                     final prompt = _textFieldController.text;
@@ -160,7 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               // Response field
-              if (_response.isNotEmpty)
+              if (_isLoading)
+                const Center(child: CircularProgressIndicator()), // Loading indicator
+              if (!_isLoading && _response.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SelectableText(
@@ -171,9 +188,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              if (_response.isNotEmpty)
+              if (!_isLoading && _response.isNotEmpty)
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10,bottom: 10),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 10),
                   child: TextButton(
                     onPressed: _clearResponse,
                     style: TextButton.styleFrom(
@@ -185,9 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
               else
-                const SizedBox.shrink(), // This is a placeholder in case the condition is false
-
-
+                const SizedBox.shrink(), // Placeholder if there's no response
             ],
           ),
         ],
