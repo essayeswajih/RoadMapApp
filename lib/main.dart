@@ -113,11 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ListView(
             children: <Widget>[
               const Center(
-                child: Text(
-                  'WELCOME',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    'WELCOME',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
               ),
