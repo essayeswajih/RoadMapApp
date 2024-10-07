@@ -1,17 +1,23 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart'; // Import the package
+import 'package:connectivity_plus/connectivity_plus.dart'; // For checking network connectivity
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   try {
-    Gemini.init(apiKey: "AIzaSyDueBLKTxP68nOom8LgytxpQAS6GbzC9BI");
+    String? apiKey = "AIzaSyDueBLKTxP68nOom8LgytxpQAS6GbzC9BI"; // Replace with actual API key
+    if (apiKey.isEmpty) {
+      throw Exception('API key is missing');
+    }
+    await Gemini.init(apiKey: apiKey); // Await initialization
   } catch (e) {
-    print("ex1");
-    print(e);
+    print('Failed to initialize Gemini API: $e');
   }
 
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -58,15 +64,76 @@ class _MyHomePageState extends State<MyHomePage> {
   String _response = ""; // Variable to display API response
   bool _isLoading = false; // Flag for showing loading indicator
 
+  // Method to check for network connection
+  Future<bool> isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult != ConnectivityResult.none;
+  }
+    void _showNoInternetSnackBar(BuildContext context) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No Internet Connection'),
+          duration: Duration(seconds: 2), // Show for 2 seconds
+        ),
+      );
+    }
+
+  // Method to show an alert dialog when there's no internet
+  void _showNoInternetAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('No Internet Connection'),
+          content: const Text('Please check your network settings and try again.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAlert(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:  Text(title),
+          content:  Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // Method to call Gemini API and get the roadmap
   void _getRoadMap(String prompt) async {
+    if (!await isConnected()) {
+      _showNoInternetSnackBar(context);
+      _showNoInternetAlert(context); // Show alert if no internet
+
+      return;
+    }
+
     setState(() {
       _isLoading = true; // Show loading indicator
     });
 
     try {
-      var text = "give me a road map for: $prompt";
-      print(text);
+      var text = "give me a road map for: $prompt with a sources to learn each steps";
 
       var value = await _gemini.text(text); // Await the response from the API
 
@@ -74,18 +141,15 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           _response = value.output!; // Update the state with the API response
         });
-        print(_response);
       } else {
         setState(() {
-          _response = 'No output received from the API'; // User feedback
+          _showAlert(context, 'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
         });
-        print('No output received from the API');
       }
     } catch (e) {
       setState(() {
-        _response = 'Error: Could not fetch the roadmap. Please try again.'; // User feedback
+        _showNoInternetAlert(context);
       });
-      print('Error: $e');
     } finally {
       setState(() {
         _isLoading = false; // Hide loading indicator
@@ -108,12 +172,17 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           // Background image
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/70d1c82d5b7fe75cb61f7866311eafd4.jpg'),
+                image: const AssetImage('assets/images/70d1c82d5b7fe75cb61f7866311eafd4.jpg'),
                 fit: BoxFit.cover,
+                onError: (exception, stackTrace) {
+                  _showAlert(context, 'Error', 'Failed to load image: $exception');
+                  // You can use a default color or an alternative image
+                },
               ),
             ),
+            child: Container(color: Colors.black.withOpacity(0.3)), // Fallback if image fails
           ),
           // Apply blur effect on top of the image
           Positioned.fill(
@@ -164,6 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     final prompt = _textFieldController.text;
                     if (prompt.isNotEmpty) {
                       _getRoadMap(prompt);
+                    } else {
+                      setState(() {
+                        _response = 'Please provide a valid input.';
+                      });
                     }
                   },
                   style: TextButton.styleFrom(
