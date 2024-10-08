@@ -234,9 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (prompt.isNotEmpty) {
                       _getRoadMap(prompt);
                     } else {
-                      setState(() {
-                        _response = 'Please provide a valid input.';
-                      });
+                      _showAlert(context, 'Error', 'Please provide a valid input.');
                     }
                   },
                   style: TextButton.styleFrom(
