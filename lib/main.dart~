@@ -121,10 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Method to call Gemini API and get the roadmap
   void _getRoadMap(String prompt) async {
-    if (!await isConnected()) {
-      _showNoInternetSnackBar(context);
-      _showNoInternetAlert(context); // Show alert if no internet
-
+    final result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      _showNoInternetAlert(context);
       return;
     }
 
@@ -133,8 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     try {
-      var text = "give me a road map for: $prompt with a sources to learn each steps";
-
+      var text = "give me a road map for a: $prompt w
+ith a sources to learn each steps in the road map. i want the response in a language that the job written with";
       var value = await _gemini.text(text); // Await the response from the API
 
       if (value != null && value.output != null) {
@@ -142,14 +141,11 @@ class _MyHomePageState extends State<MyHomePage> {
           _response = value.output!; // Update the state with the API response
         });
       } else {
-        setState(() {
-          _showAlert(context, 'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
-        });
+          _showAlert(context,'Error 1', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.1');
       }
     } catch (e) {
-      setState(() {
-        _showNoInternetAlert(context);
-      });
+      print('Error: $e');
+      _showAlert(context, 'Error 2', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
     } finally {
       setState(() {
         _isLoading = false; // Hide loading indicator
@@ -218,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     filled: true,
                     fillColor: Colors.black.withOpacity(0.7),
                     border: const OutlineInputBorder(),
-                    hintText: 'Road Map For',
+                    hintText: 'Job Title',
                     hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
                   ),
                   style: TextStyle(color: Colors.white.withOpacity(0.7)),
@@ -234,9 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (prompt.isNotEmpty) {
                       _getRoadMap(prompt);
                     } else {
-                      setState(() {
-                        _response = 'Please provide a valid input.';
-                      });
+                      _showAlert(context, 'Error', 'Please provide a valid input.');
                     }
                   },
                   style: TextButton.styleFrom(
