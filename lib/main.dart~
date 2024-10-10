@@ -132,8 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     try {
-      var text = "give me a road map for a: $prompt w
-ith a sources to learn each steps in the road map. i want the response in a language that the job written with";
+      var text = "give me a road map for a: $prompt with a sources to learn each steps in the road map. i want the response in a language that the job written with";
       var value = await _gemini.text(text); // Await the response from the API
 
       if (value != null && value.output != null) {
