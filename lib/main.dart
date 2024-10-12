@@ -143,7 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
           _showAlert(context,'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.1');
       }
     } catch (e) {
-      print('Error: $e');
       _showAlert(context, 'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
     } finally {
       setState(() {
@@ -195,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Text(
-                    'WELCOME',
+                    'Get your road map now !!!',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
