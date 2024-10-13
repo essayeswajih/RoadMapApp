@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'aboutPage.dart';
 import 'helpPage.dart';
 import 'homePage.dart';
 
-class MyDrower extends StatelessWidget{
+class MyDrower extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -13,11 +14,12 @@ class MyDrower extends StatelessWidget{
         children: [
           const UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/IMG_20240218_203439.jpg'),
+              backgroundImage:
+                  AssetImage('assets/images/IMG_20240218_203439.jpg'),
             ),
             accountEmail: Text('wajihsayes@gmail.com'),
             accountName: Text(
-              'Essayed Mohamed Wajih',
+              'Essayes Mohamed Wajih',
               style: TextStyle(fontSize: 24.0),
             ),
             decoration: BoxDecoration(
@@ -31,7 +33,11 @@ class MyDrower extends StatelessWidget{
               style: TextStyle(fontSize: 24.0),
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'AI Job Roadmap')));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          MyHomePage(title: 'AI Job Roadmap')));
             },
           ),
           ListTile(
@@ -41,7 +47,8 @@ class MyDrower extends StatelessWidget{
               style: TextStyle(fontSize: 24.0),
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AboutPage()));
             },
           ),
           ListTile(
@@ -51,13 +58,12 @@ class MyDrower extends StatelessWidget{
               style: TextStyle(fontSize: 24.0),
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HelpPage()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HelpPage()));
             },
           ),
         ],
-
       ),
     );
   }
-
 }

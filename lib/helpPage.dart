@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui'; // Import for ImageFilter
+
+import 'package:flutter/material.dart';
 
 class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
@@ -26,15 +27,15 @@ class HelpPage extends StatelessWidget {
               ),
             ),
           ),
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20.0),
-                  const Text(
+                  SizedBox(height: 20.0),
+                  Text(
                     'How to Use AI Job Roadmap?',
                     style: TextStyle(
                       fontSize: 24.0,
@@ -42,31 +43,31 @@ class HelpPage extends StatelessWidget {
                       color: Colors.white, // Adjust text color for visibility
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  const Text(
+                  SizedBox(height: 16.0),
+                  Text(
                     '1. Enter a prompt in the text field.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  const Text(
+                  SizedBox(height: 8.0),
+                  Text(
                     '2. Click "Get it !!!" to get the road map.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  const Text(
+                  SizedBox(height: 8.0),
+                  Text(
                     '3. The road map will be displayed in the response field.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility
                     ),
                   ),
-                  const SizedBox(height: 70.0),
+                  SizedBox(height: 70.0),
                 ],
               ),
             ),

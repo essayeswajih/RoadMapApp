@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -26,15 +27,15 @@ class AboutPage extends StatelessWidget {
               ),
             ),
           ),
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20.0),
-                  const Text(
+                  SizedBox(height: 20.0),
+                  Text(
                     'AI Job Roadmap',
                     style: TextStyle(
                       fontSize: 24.0,
@@ -42,32 +43,32 @@ class AboutPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  const Text(
+                  SizedBox(height: 16.0),
+                  Text(
                     'Version: 1.0.0',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Developed by: Essayed Mohamed Wajih',
+                  SizedBox(height: 16.0),
+                  Text(
+                    'Developed by: Essayes Mohamed Wajih',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  const Text(
+                  SizedBox(height: 16.0),
+                  Text(
                     'Email: wajihsayes@gmailcom',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  const Text(
+                  SizedBox(height: 16.0),
+                  Text(
                     'Copyright © 2024 AI Job Roadmap. All rights reserved.',
                     style: TextStyle(
                       fontSize: 18.0,
