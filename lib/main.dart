@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart'; // Import the package
 
@@ -7,7 +6,8 @@ import 'homePage.dart'; // For checking network connectivity
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    String? apiKey = "AIzaSyDueBLKTxP68nOom8LgytxpQAS6GbzC9BI"; // Replace with actual API key
+    String? apiKey =
+        "AIzaSyDueBLKTxP68nOom8LgytxpQAS6GbzC9BI"; // Replace with actual API key
     if (apiKey.isEmpty) {
       throw Exception('API key is missing');
     }
@@ -18,7 +18,6 @@ void main() async {
 
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -48,4 +47,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
