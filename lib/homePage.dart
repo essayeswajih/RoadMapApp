@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final url = text.substring(match.start, match.end);
       spans.add(TextSpan(
         text: url,
-        style: const TextStyle(color: Colors.blue),
+        style: const TextStyle(color: Colors.green),
         recognizer: TapGestureRecognizer()..onTap = () => launchUrl(url),
       ));
 
