@@ -1,7 +1,9 @@
 import 'dart:ui';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart'; // Import the package
+
 import 'drawer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,7 +18,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _gemini = Gemini.instance; // Instance for interacting with Gemini API
   String _roadMapText = ""; // Variable to store the Gemini response
-  final _textFieldController = TextEditingController(); // Controller for the TextField
+  final _textFieldController =
+      TextEditingController(); // Controller for the TextField
   String _response = ""; // Variable to display API response
   bool _isLoading = false; // Flag for showing loading indicator
 
@@ -25,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     return connectivityResult != ConnectivityResult.none;
   }
+
   void _showNoInternetSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -41,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('No Internet Connection'),
-          content: const Text('Please check your network settings and try again.'),
+          content:
+              const Text('Please check your network settings and try again.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -60,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  Text(title),
-          content:  Text(message),
+          title: Text(title),
+          content: Text(message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -88,18 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     try {
-      var text = "give me a road map for a: $prompt with a sources to learn each steps in the road map. i want the response in a language that the job written with";
+      var text =
+          "give me a road map for a: $prompt with a sources to learn each steps in the road map. i want the response in a language that the job written with";
       var value = await _gemini.text(text); // Await the response from the API
 
       if (value != null && value.output != null) {
         setState(() {
+          print(value.output!);
           _response = value.output!; // Update the state with the API response
         });
       } else {
-        _showAlert(context,'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.1');
+        _showAlert(context, 'Error',
+            'Error: Could not fetch the roadmap. Please check your internet connection or try again later.1');
       }
     } catch (e) {
-      _showAlert(context, 'Error', 'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
+      _showAlert(context, 'Error',
+          'Error: Could not fetch the roadmap. Please check your internet connection or try again later.');
     } finally {
       setState(() {
         _isLoading = false; // Hide loading indicator
@@ -127,12 +136,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: const AssetImage('assets/images/logo.png'),
                 fit: BoxFit.cover,
                 onError: (exception, stackTrace) {
-                  _showAlert(context, 'Error', 'Failed to load image: $exception');
+                  _showAlert(
+                      context, 'Error', 'Failed to load image: $exception');
                   // You can use a default color or an alternative image
                 },
               ),
             ),
-            child: Container(color: Colors.black.withOpacity(0.3)), // Fallback if image fails
+            child: Container(
+                color:
+                    Colors.black.withOpacity(0.3)), // Fallback if image fails
           ),
           // Apply blur effect on top of the image
           Positioned.fill(
@@ -145,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           // Main content with ListView
           ListView(
-            children:[
+            children: [
               const Center(
                 child: Padding(
                   padding: EdgeInsets.all(20.0),
@@ -189,27 +201,30 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 20),
               // Button to fetch roadmap
               Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 10),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20, bottom: 10),
                 child: TextButton(
                   onPressed: () {
                     final prompt = _textFieldController.text;
                     if (prompt.isNotEmpty) {
                       _getRoadMap(prompt);
                     } else {
-                      _showAlert(context, 'Error', 'Please provide a valid input.');
+                      _showAlert(
+                          context, 'Error', 'Please provide a valid input.');
                     }
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.black.withOpacity(0.8),
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                     foregroundColor: Colors.white,
                   ),
                   child: const Text('Get it !!!'),
                 ),
               ),
               // Response field
-              if (_isLoading)
-                const Center(child: CircularProgressIndicator()), // Loading indicator
+              if (_isLoading) const Center(child: CircularProgressIndicator()),
+              // Loading indicator
               if (!_isLoading && _response.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -223,28 +238,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               if (!_isLoading && _response.isNotEmpty)
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20, top: 10, bottom: 10),
                   child: TextButton(
                     onPressed: _clearResponse,
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.black.withOpacity(0.8),
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
                       foregroundColor: Colors.white,
                     ),
                     child: const Text('Clear'),
                   ),
                 )
               else
-                const SizedBox.shrink(), // Placeholder if there's no response
+                const SizedBox.shrink(),
+              // Placeholder if there's no response
             ],
           ),
         ],
       ),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
+        backgroundColor:
+            Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
         title: Text(widget.title),
       ),
-      drawer:MyDrower(),
+      drawer: MyDrower(),
     );
   }
 }

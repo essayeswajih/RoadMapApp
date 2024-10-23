@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (value != null && value.output != null) {
         setState(() {
+          print(value.output!);
           _response = value.output!; // Update the state with the API response
         });
       } else {
@@ -160,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const Center(
                 child: Padding(
+                  padding: EdgeInsets.all(0.0),
                   child: Text(
                     'Get your road map now !!!',
                     style: TextStyle(
