@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'aboutPage.dart';
 import 'helpPage.dart';
-import 'homePage.dart';
 
 class MyDrower extends StatelessWidget {
   const MyDrower({super.key});
@@ -27,20 +26,6 @@ class MyDrower extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black87,
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.house),
-            title: const Text(
-              'Home',
-              style: TextStyle(fontSize: 24.0),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MyHomePage(title: 'AI Job Roadmap')));
-            },
           ),
           ListTile(
             leading: const Icon(Icons.info),
