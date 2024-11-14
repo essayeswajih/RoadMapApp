@@ -45,7 +45,7 @@ class HelpPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16.0),
                   Text(
-                    '1. Enter a prompt in the text field.',
+                    '1. Enter a Job in the text field.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility
@@ -53,7 +53,7 @@ class HelpPage extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    '2. Click "Get it !!!" to get the road map.',
+                    '2. Click "Get RoadMap" to get the Job roadmap.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility
@@ -62,6 +62,15 @@ class HelpPage extends StatelessWidget {
                   SizedBox(height: 8.0),
                   Text(
                     '3. The road map will be displayed in the response field.',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white, // Adjust text color for visibility
+                    ),
+                  ),
+                  SizedBox(height: 70.0),
+                  SizedBox(height: 8.0),
+                  Text(
+                    '4. Clear the text field to start again.',
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white, // Adjust text color for visibility

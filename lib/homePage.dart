@@ -300,7 +300,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                title,
+                                _textFilter(title),
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -343,5 +343,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  _textFilter(String value) {
+    String text = "";
+    for (int i = 0; i < value.length; i++) {
+      if (value[i] != "*") {
+        text += value[i];
+      }
+    }
+    return text;
   }
 }
